@@ -6,6 +6,7 @@ if (!isset($_SESSION['departamento'])) {
     header("Location: login.php"); // Redirigir al login si no está autenticado
     exit();
 }
+echo "Bienvenido, " . $_SESSION['departamento']; // Confirmar la sesión
 ?>
 
 <!DOCTYPE html>

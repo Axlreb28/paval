@@ -10,40 +10,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($departamento_nombre) || empty($password)) {
         $error = "Por favor, llena todos los campos.";
     } else {
-        // Conexión a la base de datos (ajusta estos valores a tu configuración)
+        // Conexión a la base de datos
         $conn = new mysqli('localhost', 'root', '', 'indicadorestlalpan');
 
         if ($conn->connect_error) {
             die("Conexión fallida: " . $conn->connect_error);
         }
 
-        // Verificar si el departamento existe y obtener su ID
-        $departamento_query = $conn->prepare("SELECT ID, Contraseña FROM Departamentos WHERE Departamento = ?");
-        $departamento_query->bind_param("s", $departamento_nombre);
-        $departamento_query->execute();
-        $departamento_result = $departamento_query->get_result();
+        // Buscar el departamento por su nombre
+        $stmt = $conn->prepare("
+            SELECT d.ID AS DepartamentoID, d.Departamento, u.Contraseña 
+            FROM Departamentos d
+            JOIN RegistroUsuarios u ON d.ID = u.DepartamentoID
+            WHERE d.Departamento = ?
+        ");
+        $stmt->bind_param("s", $departamento_nombre);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($departamento_result->num_rows == 0) {
-            $error = "El nombre del departamento es incorrecto.";
+        if ($result->num_rows == 0) {
+            $error = "El nombre del departamento es incorrecto o no tiene usuarios registrados.";
         } else {
-            $departamento_row = $departamento_result->fetch_assoc();
-            $departamento_id = $departamento_row['ID'];
-            $hashed_password = $departamento_row['Contraseña'];
+            $row = $result->fetch_assoc();
+            $departamento_id = $row['DepartamentoID'];
+            $hashed_password = $row['Contraseña'];
 
-            // Verificar si la contraseña es correcta
+            // Verificar la contraseña
             if (password_verify($password, $hashed_password)) {
-                // Iniciar sesión del departamento
+                // Guardar datos de sesión
                 $_SESSION['departamento'] = $departamento_nombre;
                 $_SESSION['departamento_id'] = $departamento_id;
 
-                // Redirigir a la página solicitada o al menú por defecto
-                header("Location: menu.php"); // Cambia "menu.php" al nombre de tu página de menú
+                // Redirigir al menú
+                header("Location: menu.php");
                 exit();
             } else {
                 $error = "Contraseña incorrecta.";
             }
         }
 
+        $stmt->close();
         $conn->close();
     }
 }
@@ -57,8 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="icon" type="image/png" href="/static/logo.png">
-    <!-- Aquí está la línea corregida -->
-    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
     <header>
@@ -69,7 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </nav>
     </header>
 
-    <!-- Contenido principal del Login -->
     <div class="login-page">
         <h1>¡Bienvenid@!</h1>
         <div class="wrapper fadeInDown">
@@ -94,7 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
                 <?php endif; ?>
 
-                <!-- Enlace de Registro -->
                 <div id="formFooter">
                     <a class="underlineHover btn btn-secondary" href="register.php">Registrarse</a>
                 </div>
@@ -102,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
