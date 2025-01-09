@@ -19,7 +19,6 @@
     transform: translate(-50%, -50%); /* Centra el contenedor */
 }
 
-
 /* Estilo para el título */
 #formContent h2.centro {
     font-size: 30px;
@@ -42,7 +41,7 @@
     display: block;
     padding: 15px;
     text-align: center;
-    background-color: #bf3131; /* Fondo azul */
+    background-color: #bf3131; /* Fondo rojo */
     color: white;
     text-decoration: none; /* Sin subrayado */
     border-radius: 4px;
@@ -51,7 +50,7 @@
 }
 
 .menu-item:hover {
-    background-color: #ffb093; /* Fondo azul oscuro al pasar el ratón */
+    background-color: #ffb093; /* Fondo rojo claro al pasar el ratón */
     color: white;
 }
 

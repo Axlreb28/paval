@@ -1,23 +1,15 @@
 <?php
 session_start();
-
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION['departamento'])) {
-    header("Location: login.php"); // Redirigir al login si no está autenticado
-    exit();
-}
-echo "Bienvenido, " . $_SESSION['departamento']; // Confirmar la sesión
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/menu.css"> <!-- Ruta correcta del CSS -->
-    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="static/css/navbar.css">
+    <title>Mi Proyecto</title>
 </head>
 <body>
     <header>
@@ -55,16 +47,10 @@ echo "Bienvenido, " . $_SESSION['departamento']; // Confirmar la sesión
         </nav>
     </header>
 
-    <div class="container mt-5">
-        <h2 class="centro">Programas Sociales</h2>
-        <div class="menu-grid">
-            <a class="menu-item" href="form.php">Cuidar y ser cuidado para el Bienestar 2025</a>
-            <a class="menu-item" href="formapoyo.php">Apoyo para el bienestar 2025</a>
-            <a class="menu-item" href="formtransfor.php">Transformando en Comunidad</a>
-            <a class="menu-item" href="formjuven.php">Juventudes en Transformación</a>
-            <a class="menu-item" href="formcuidadoinfancias.php">Fortalecimiento para el cuidado y desarrollo integral de las infancias</a>
-        </div>
-    </div>
+    <!-- Tu contenido principal -->
+    <main class="container">
+        <!-- Aquí va tu contenido -->
+    </main>
 
     <!-- Importar Bootstrap JS y dependencias -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -72,3 +58,4 @@ echo "Bienvenido, " . $_SESSION['departamento']; // Confirmar la sesión
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

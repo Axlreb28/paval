@@ -61,14 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="/static/css/login.css">
-    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="static/css/login.css">
+    <link rel="icon" type="image/png" href="static/img/logo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <a class="navbar-brand" href="index.php">
-                <img src="/static/logo.png" alt="Logo" style="height: 30px;">
+                <img src="static/img/logo.png" alt="Logo" style="height: 30px;">
             </a>
         </nav>
     </header>
@@ -78,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <div class="logo">
-                    <img src="/static/logo.png" id="imagen" alt="Logo">
+                    <img src="static/img/logo.png" id="imagen" alt="Logo">
                 </div>
                 <form method="POST" action="login.php">
                     <div class="form-group">
@@ -89,16 +90,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="password">Contraseña:</label>
                         <input type="password" id="password" class="fadeIn third form-control" name="password" placeholder="Contraseña" required>
                     </div>
-                    <input type="submit" class="fadeIn fourth btn btn-primary" value="Iniciar Sesión">
+                    <input type="submit" class="fadeIn fourth button" value="Iniciar Sesión">
                 </form>
 
                 <!-- Mostrar mensaje de error si hay uno -->
                 <?php if ($error): ?>
-                    <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
+                    <div class="alert mt-3"><?php echo $error; ?></div>
                 <?php endif; ?>
 
                 <div id="formFooter">
-                    <a class="underlineHover btn btn-secondary" href="register.php">Registrarse</a>
+                    <a class="underlineHover button-secondary" href="register.php">Registrarse</a>
                 </div>
             </div>
         </div>
